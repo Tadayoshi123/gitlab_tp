@@ -1,0 +1,23 @@
+stages:
+  - test
+  - build
+  - deploy
+
+test:
+  image: node:18
+  script:
+    - npm install
+    - npm test
+
+build:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker build -t my-node-app .
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploy stage - à compléter"
