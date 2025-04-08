@@ -4,10 +4,14 @@ stages:
   - deploy
 
 test:
+  stage: test
   image: node:18
   script:
     - npm install
     - npm test
+  cache:
+    paths:
+      - node_modules/
 
 build:
   stage: build
@@ -16,8 +20,12 @@ build:
     - docker:dind
   script:
     - docker build -t my-node-app .
+    - echo "Image Docker construite avec succès"
 
 deploy:
   stage: deploy
   script:
-    - echo "Deploy stage - à compléter"
+    - echo "Déploiement de l'application"
+    - echo "L'image pourrait être poussée vers un registre Docker ou déployée sur un serveur"
+  only:
+    - main
